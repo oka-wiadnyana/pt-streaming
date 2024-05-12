@@ -14,7 +14,7 @@
                         Pengadilan Tinggi Denpasar
                     </p>
                     <a class="btn btn-md circle btn-gradient effect wow fadeInUp" data-wow-delay="700ms"
-                        href="{{ url('/home') }}">Jump <i class="fas fa-angle-right"></i></a>
+                        href="{{ url('/home') }}">Halaman Pengguna <i class="fas fa-angle-right"></i></a>
                 </div>
 
                 <div class="col-lg-6 thumb wow fadeInRight" data-wow-delay="900ms">
