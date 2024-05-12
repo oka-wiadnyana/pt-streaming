@@ -86,7 +86,7 @@
 
                             </div>
                             <div class="col-md-8 mx-auto p-0 mb-2 ">
-                                <a href="{{ url($data?->doc_putusan) }}"
+                                <a href="{{ $data->doc_putusan ? url($data->doc_putusan) : '' }}"
                                     class="btn btn-success d-inline-block w-100 {{ $data->doc_putusan ? '' : 'disabled' }}"
                                     target="_blank">
                                     @if ($data->doc_putusan)
