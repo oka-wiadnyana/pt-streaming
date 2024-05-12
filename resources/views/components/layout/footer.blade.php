@@ -3,7 +3,8 @@
 
         <div class="row">
             <div class="col-12">
-                2018 © Agroxa <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</span>
+                2022 © PT Denpasar <span class="d-none d-sm-inline-block"> - Crafted with <i
+                        class="mdi mdi-heart text-danger"></i> by PT Denpasar</span>
             </div>
         </div>
     </div>
