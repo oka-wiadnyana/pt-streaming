@@ -20,7 +20,7 @@ class StreamingController extends Controller
   {
 
 
-    $now = now()->format('Y-m-d');
+    $now = now()->tz('Asia/Makassar')->format('Y-m-d');
 
     if (!$jenis_perkara) {
       $datas = Streaming::where('tanggal_sidang', '>', $now)->get();
