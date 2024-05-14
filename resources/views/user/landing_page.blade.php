@@ -69,7 +69,7 @@
 
     <!-- Start App features
     ============================================= -->
-    {{-- <x-landing_page.app /> --}}
+    <x-landing_page.app :statistics="$statistics" />
 
     <!-- End App Features -->
 

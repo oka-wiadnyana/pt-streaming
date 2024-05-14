@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\OtentifikasiController;
 use App\Http\Controllers\StreamingController;
+use App\Models\Accessed;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(StreamingController::class)->group(function () {
     Route::get('/home/{jenis_perkara?}', 'index');
     Route::get('/get_data_datatables/{jenis_perkara?}', 'getDataDatatables');
     Route::get('/detail/{id}', 'detailPerkara');
+    Route::get('/is_download', 'isDownloadIncrement');
 });
 Route::controller(StreamingController::class)->prefix('admin')->group(function () {
     Route::get('/home/{jenis_perkara?}', 'index');
@@ -24,7 +26,9 @@ Route::controller(StreamingController::class)->prefix('admin')->group(function (
     Route::get('/delete_user/{id}', 'deleteDataUser');
 });
 Route::get('/', function () {
-    return view('user.landing_page');
+    $statistics = Accessed::first();
+    // dd($statistics);
+    return view('user.landing_page', ['statistics' => $statistics]);
 });
 Route::controller(OtentifikasiController::class)->group(function () {
     Route::get('/login', 'login')->name('login');

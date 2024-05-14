@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accessed;
 use App\Models\Streaming;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,6 +20,17 @@ class StreamingController extends Controller
   public function index(Request $request, $jenis_perkara = null)
   {
 
+    if (url()->previous() == url('/') . "/") {
+      $isAccessSum = Accessed::first();
+      if (!$isAccessSum) {
+        Accessed::create(['is_access' => 1]);
+      } else {
+        $data = $isAccessSum->is_access;
+        $data += $data;
+
+        Accessed::first()->update(['is_access' => $data]);
+      }
+    }
 
     $now = now()->tz('Asia/Makassar')->format('Y-m-d');
 
@@ -320,5 +332,19 @@ class StreamingController extends Controller
 
 
     return response($data, 200);
+  }
+
+  public function isDownloadIncrement()
+  {
+
+    $isAccessSum = Accessed::first();
+    if (!$isAccessSum) {
+      Accessed::create(['is_download' => 1]);
+    } else {
+      $data = $isAccessSum->is_download + 1;
+
+      Accessed::first()->update(['is_download' => $data]);
+    }
+    return response()->json(['msg' => 'ok']);
   }
 }

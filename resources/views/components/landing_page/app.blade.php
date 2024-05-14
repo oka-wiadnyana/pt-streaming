@@ -1,59 +1,31 @@
-<div class="app-features-area default-padding">
+@props(['statistics' => null])
+<div class="app-features-area mb-5">
+
     <div class="container">
-        <div class="row align-center">
-            <div class="col-lg-3 text-end app-feature-style-one">
-                <div class="app-feature-item">
-                    <h4>Manaement</h4>
-                    <p>
-                        Attention are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-                <div class="app-feature-item">
-                    <h4>Time Tracking</h4>
-                    <p>
-                        Business are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-                <div class="app-feature-item">
-                    <h4>Payment</h4>
-                    <p>
-                        Providing are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center app-feature-style-one">
-                <div class="app-feature-item">
-                    <div class="app-feature-thumb">
-                        <img src="{{ asset('landing_page_assets') }}/img/illustration/17.png" alt="Thumb">
+        <div class="row">
+            <div class="col video-style-one-item  ">
+
+                <div class="d-md-flex fun-facto-box  justify-content-around">
+                    <div class="fun-fact text-center mb-2 mb-md-0 rounded rounded-xl">
+                        <div class="counter">
+                            <div class="timer" data-to="{{ $statistics->is_access ?? 0 }}" data-speed="2000"
+                                style="margin-right: 0.5rem">{{ $statistics->is_access ?? 0 }}</div>
+                            <div class="operator">Klik</div>
+                        </div>
+                        <span class="medium text-white ">Pengunjung</span>
+                    </div>
+                    <div class="fun-fact text-center">
+                        <div class="counter">
+                            <div class="timer" data-to="{{ $statistics->is_download ?? 0 }}" data-speed="2000"
+                                style="margin-right: 0.5rem">{{ $statistics->is_download ?? 0 }}</div>
+                            <div class="operator">Kali</div>
+                        </div>
+                        <span class="medium text-white">Copy Putusan Didownload</span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 app-feature-style-one">
-                <div class="app-feature-item">
-                    <h4>Productivity</h4>
-                    <p>
-                        Attention are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-                <div class="app-feature-item">
-                    <h4>Time Tracking</h4>
-                    <p>
-                        Providing are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-                <div class="app-feature-item">
-                    <h4>Live Support</h4>
-                    <p>
-                        Business are had allowance own perceived abilities. Unfeeling are had allowance own
-                        perceived abilities.
-                    </p>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>

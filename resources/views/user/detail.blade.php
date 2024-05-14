@@ -88,7 +88,7 @@
                             <div class="col-md-8 mx-auto p-0 mb-2 ">
                                 <a href="{{ $data->doc_putusan ? url($data->doc_putusan) : '' }}"
                                     class="btn btn-success d-inline-block w-100 {{ $data->doc_putusan ? '' : 'disabled' }}"
-                                    target="_blank">
+                                    target="_blank" onclick="insertDataClick()">
                                     @if ($data->doc_putusan)
                                         <i class="mdi mdi-arrow-down"></i> Download
                                     @else
@@ -110,5 +110,12 @@
     </div>
     <!-- end page content-->
     @push('script')
+        <script>
+            const insertDataClick = () => {
+                fetch('{{ url('is_download') }}').then((data) => data.json()).then(d => {
+                    return false;
+                })
+            }
+        </script>
     @endpush
 </x-layout.main>
