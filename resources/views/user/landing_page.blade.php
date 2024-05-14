@@ -27,7 +27,7 @@
     <link href="{{ asset('landing_page_assets') }}/css/validnavs.css" rel="stylesheet" />
     <link href="{{ asset('landing_page_assets') }}/css/helper.css" rel="stylesheet" />
     <link href="{{ asset('landing_page_assets') }}/css/style.css" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet">
+    {{-- <link href="style.css" rel="stylesheet"> --}}
     <link href="{{ asset('landing_page_assets') }}/css/responsive.css" rel="stylesheet" />
     <!-- ========== End Stylesheet ========== -->
 
