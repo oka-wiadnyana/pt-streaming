@@ -25,8 +25,8 @@ class StreamingController extends Controller
       if (!$isAccessSum) {
         Accessed::create(['is_access' => 1]);
       } else {
-        $data = $isAccessSum->is_access;
-        $data += $data;
+        $data = $isAccessSum->is_access + 1;
+        // $data += $data;
 
         Accessed::first()->update(['is_access' => $data]);
       }
