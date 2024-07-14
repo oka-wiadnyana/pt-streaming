@@ -89,10 +89,13 @@
                     denyButtonText: `Tidak`
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
-                    fetch(`{{ url('/admin/delete_user') }}/${id}`) // api for the get request
-                        .then(response => {
-                            window.location.reload();
-                        })
+                    if (result.isConfirmed) {
+
+                        fetch(`{{ url('/admin/delete_user') }}/${id}`) // api for the get request
+                            .then(response => {
+                                window.location.reload();
+                            })
+                    }
 
                 });
             }

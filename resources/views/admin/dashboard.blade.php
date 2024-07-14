@@ -46,10 +46,12 @@
                                     <thead>
                                         <tr>
 
-                                            <th scope="col">Nomor perkara</th>
-                                            <th scope="col">Nomor perkara PN</th>
-                                            <th scope="col">Tanggal Sidang</th>
+                                            <th scope="col">Nomor</th>
+                                            <th scope="col">Nomor Perkara PT</th>
+                                            <th scope="col">Nomor Perkara PN</th>
+                                            <th scope="col">Tanggal Putusan</th>
                                             <th scope="col">Jenis perkara</th>
+
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -77,6 +79,11 @@
                     serverSide: true,
                     ajax: "{{ url("get_data_datatables/$jenis_perkara") }}",
                     columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        }, {
                             data: 'nomor_perkara',
                             name: 'nomor_perkara',
                             orderable: true,

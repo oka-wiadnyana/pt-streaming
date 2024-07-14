@@ -44,17 +44,66 @@
                                             name="nomor_perkara_pertama">
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-label">Nomor Perkara PN</label>
+                                        <label for="" class="form-label">Jenis Perkara</label>
                                         <select id="" class="form-control" name="jenis_perkara">
                                             <option value="" selected disabled>Pilih ..</option>
-                                            <option value="Pidana">Pidana</option>
-                                            <option value="Perdata">Perdata</option>
-                                            <option value="Tipikor">Tipikor</option>
+                                            @foreach ($klasifikasi as $k)
+                                                <option value="{{ $k->jenis_perkara }}">{{ $k->jenis_perkara }}</option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-label">Tanggal sidang</label>
+                                        <label for="" class="form-label">Klasifikasi</label>
+                                        <select id="" class="form-control" name="klasifikasi_perkara">
+                                            <option value="" selected disabled>Pilih ..</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Ketua</label>
+                                        <select id="" class="form-control" name="hk">
+                                            <option value="" selected disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}">{{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Anggota</label>
+                                        <select id="" class="form-control" name="ha1">
+                                            <option value="" selected disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}">{{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Anggota</label>
+                                        <select id="" class="form-control" name="ha2">
+                                            <option value="" selected disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}">{{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">PP</label>
+                                        <select id="" class="form-control" name="pp">
+                                            <option value="" selected disabled>Pilih ..</option>
+                                            @foreach ($pp as $h)
+                                                <option value="{{ $h->id }}">{{ $h->pp_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Tanggal Putus</label>
                                         <input type="date" id="" class="form-control" name="tanggal_sidang">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Pukul</label>
+                                        <input type="time" id="" class="form-control" name="pukul">
                                     </div>
                                     <div class="col p-0">
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -73,5 +122,28 @@
     </div>
     <!-- end page content-->
     @push('script')
+        <script>
+            let jenisPerkara = document.querySelector('[name="jenis_perkara"]');
+            ('jenis_perkara');
+            console.log(jenisPerkara);
+            let klasifikasi = document.querySelector('[name="klasifikasi_perkara"]');
+            jenisPerkara.addEventListener('change', function() {
+                console.log(this.value)
+                klasifikasi.innerHTML = "";
+                options = document.createElement('option');
+                options.text = "Pilih";
+                options.value = "";
+                klasifikasi.add(options);
+                fetch(`{{ url('/admin/get_klasifikasi') }}/${this.value}`).then(data => data.json()).then(d => {
+                    d.forEach(element => {
+                        let options;
+                        options = document.createElement('option');
+                        options.text = element.klasifikasi_text;
+                        options.value = element.klasifikasi_text;
+                        klasifikasi.add(options);
+                    });
+                })
+            })
+        </script>
     @endpush
 </x-layout.main>

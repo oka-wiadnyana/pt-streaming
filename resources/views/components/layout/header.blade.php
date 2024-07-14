@@ -119,8 +119,22 @@
                         </li>
                     @endauth
                     @if (auth()?->user()?->role === 'admin')
-                        <li class="has-submenu">
-                            <a href="{{ url('/admin/account') }}"><i class="mdi mdi-account"></i>Users</a>
+                        <li class="has-submenu last-elements">
+                            <a href="#"><i class="mdi mdi-google-pages"></i>Referensi</a>
+                            <ul class="submenu megamenu">
+                                <li>
+                                    <ul>
+                                        <li><a href="{{ url('admin/klasifikasi_perkara') }}">Klasifikasi Perkara</a>
+                                        <li><a href="{{ url('admin/hakim') }}">Daftar Hakim</a>
+                                        <li><a href="{{ url('admin/pp') }}">Daftar PP</a>
+                                        <li><a href="{{ url('admin/account') }}">User</a>
+                                        <li><a href="{{ url('admin/laporan') }}">Laporan</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                            </ul>
                         </li>
                     @endif
 

@@ -52,21 +52,73 @@
                                                 class="text-danger">*</small></label>
                                         <select id="" class="form-control" name="jenis_perkara">
                                             <option value="" selected disabled>Pilih ..</option>
-                                            <option value="Pidana" @selected($data->jenis_perkara === 'Pidana')>Pidana</option>
-                                            <option value="Perdata" @selected($data->jenis_perkara === 'Perdata')>Perdata</option>
-                                            <option value="Tipikor" @selected($data->jenis_perkara === 'Tipikor')>Tipikor</option>
+                                            @foreach ($klasifikasi as $k)
+                                                <option value="{{ $k->jenis_perkara }}" @selected($k->jenis_perkara === $data->jenis_perkara)>
+                                                    {{ $k->jenis_perkara }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-label">Tanggal sidang <small
+                                        <label for="" class="form-label">Klasifikasi</label>
+                                        <select id="" class="form-control" name="klasifikasi_perkara">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Ketua</label>
+                                        <select id="" class="form-control" name="hk">
+                                            <option value="" disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}" @selected($h->id == $data->hk)>
+                                                    {{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Anggota 1</label>
+                                        <select id="" class="form-control" name="ha1">
+                                            <option value="" disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}" @selected($h->id == $data->ha1)>
+                                                    {{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Hakim Anggota 2</label>
+                                        <select id="" class="form-control" name="ha2">
+                                            <option value="" disabled>Pilih ..</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}" @selected($h->id == $data->ha2)>
+                                                    {{ $h->hakim_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">PP</label>
+                                        <select id="" class="form-control" name="pp">
+                                            <option value="" disabled>Pilih ..</option>
+                                            @foreach ($pp as $h)
+                                                <option value="{{ $h->id }}" @selected($h->id == $data->pp)>
+                                                    {{ $h->pp_nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Tanggal putus <small
                                                 class="text-danger">*</small></label>
                                         <input type="date" id="" class="form-control" name="tanggal_sidang"
                                             value="{{ $data->tanggal_sidang }}">
                                     </div>
                                     <div class="form-group">
+                                        <label for="" class="form-label">Pukul</label>
+                                        <input type="time" id="" class="form-control" name="pukul"
+                                            value="{{ $data->pukul }}">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="" class="form-label">Link Streaming</label>
-                                        <input type="text" id="" class="form-control" name="link_streaming"
-                                            value="{{ $data->link_streaming }}">
+                                        <input type="text" id="" class="form-control"
+                                            name="link_streaming" value="{{ $data->link_streaming }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="form-label">Amar Putusan</label>
@@ -96,5 +148,53 @@
     </div>
     <!-- end page content-->
     @push('script')
+        <script>
+            let jenisPerkara = document.querySelector('[name="jenis_perkara"]');
+            ('jenis_perkara');
+            console.log(jenisPerkara);
+            let klasifikasi = document.querySelector('[name="klasifikasi_perkara"]');
+
+            initOptions = document.createElement('option');
+
+            klasifikasi.add(initOptions);
+            fetch(`{{ url('/admin/get_klasifikasi/' . $data->jenis_perkara) }}`).then(data => data.json()).then(d => {
+                console.log(d);
+                klasifikasi.innerHTML = "";
+                options = document.createElement('option');
+                options.text = "Pilih";
+                options.value = "";
+                klasifikasi.add(options);
+                d.forEach(element => {
+                    let initOptions;
+
+                    initOptions = document.createElement('option');
+                    initOptions.text = element.klasifikasi_text;
+                    initOptions.value = element.klasifikasi_text;
+                    if (element.klasifikasi_text == "{{ $data->klasifikasi_perkara }}") {
+                        initOptions.setAttribute('selected', 'selected');
+                    }
+
+                    klasifikasi.add(initOptions);
+                });
+            })
+
+            jenisPerkara.addEventListener('change', function() {
+                console.log(this.value)
+                klasifikasi.innerHTML = "";
+                options = document.createElement('option');
+                options.text = "Pilih";
+                options.value = "";
+                klasifikasi.add(options);
+                fetch(`{{ url('/admin/get_klasifikasi') }}/${this.value}`).then(data => data.json()).then(d => {
+                    d.forEach(element => {
+                        let options;
+                        options = document.createElement('option');
+                        options.text = element.klasifikasi_text;
+                        options.value = element.klasifikasi_text;
+                        klasifikasi.add(options);
+                    });
+                })
+            })
+        </script>
     @endpush
 </x-layout.main>

@@ -8,7 +8,7 @@
 
                     </div>
 
-                    <h4 class="page-title">Sidang yang akan datang</h4>
+                    {{-- <h4 class="page-title">Sidang yang akan datang</h4> --}}
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active"></li>
                     </ol>
@@ -23,35 +23,37 @@
     {{-- @dd($data) --}}
     <div class="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
+            {{-- <div class="row">
                 @foreach ($data as $d)
                     @if ($loop->index < 4)
                         <x-partials.upper_card :perkara="$d" />
                     @endif
                 @endforeach
-            </div>
+            </div> --}}
             <!-- end row -->
 
 
-            <x-partials.today_card :perkara="$today" />
+            {{-- <x-partials.today_card :perkara="$today" /> --}}
+
 
             <div class="row">
 
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title mb-4">Daftar Perkara</h4>
+                            <h4 class="mt-0 header-title mb-4">Daftar Hakim</h4>
+                            <div class="col">
+                                <a href="{{ url('admin/add_hakim') }}" class="btn btn-primary">Tambah
+                                    Hakim</a>
+                            </div>
                             <div class="table-responsive order-table">
                                 <table class="table table-hover mb-0" id="table">
                                     <thead>
                                         <tr>
 
                                             <th scope="col">Nomor</th>
-                                            <th scope="col">Nomor perkara</th>
-                                            <th scope="col">Nomor perkara PN</th>
-                                            <th scope="col">Tanggal Putusan</th>
-                                            <th scope="col">Jenis perkara</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Nama</th>
+
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -76,42 +78,19 @@
                 var table = $('#table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ url("get_data_datatables/$jenis_perkara") }}",
+                    ajax: "{{ url('admin/get_hakim_datatables') }}",
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex',
                             orderable: false,
                             searchable: false
                         }, {
-                            data: 'nomor_perkara',
-                            name: 'nomor_perkara',
+                            data: 'hakim_nama',
+                            name: 'hakim_nama',
                             orderable: true,
                             searchable: true
                         },
-                        {
-                            data: 'nomor_perkara_pertama',
-                            name: 'nomor_perkara_pertama',
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: 'tanggal_sidang',
-                            name: 'tanggal_sidang',
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: 'jenis_perkara',
-                            name: 'jenis_perkara',
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            orderable: true,
-                            searchable: true
-                        },
+
 
 
                         {
@@ -124,7 +103,7 @@
 
             });
 
-            function deleteData(id) {
+            function deleteHakim(id) {
                 Swal.fire({
                     title: "Anda Yakin Menghapusnya?",
                     showDenyButton: true,
@@ -133,10 +112,13 @@
                     denyButtonText: `Tidak`
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
-                    fetch(`{{ url('/admin/delete') }}/${id}`) // api for the get request
-                        .then(response => {
-                            window.location.reload();
-                        })
+                    if (result.isConfirmed) {
+
+                        fetch(`{{ url('/admin/delete_hakim') }}/${id}`) // api for the get request
+                            .then(response => {
+                                window.location.reload();
+                            })
+                    }
 
                 });
             }

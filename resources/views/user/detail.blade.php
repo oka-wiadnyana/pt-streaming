@@ -65,6 +65,16 @@
                                     </div>
                                 @endif
                             </div>
+                            <div class="col-md-8 mx-auto p-0 rounded rounded-xl mb-2" style="overflow: hidden">
+                                <input type="text" class="form-control" readonly
+                                    value="Hakim Ketua : {{ $data->hakim_ketua?->hakim_nama }}">
+                                <input type="text" class="form-control" readonly
+                                    value="Hakim Anggota 1 : {{ $data->hakim_anggota1?->hakim_nama }}">
+                                <input type="text" class="form-control" readonly
+                                    value="Hakim Anggota 2 : {{ $data->hakim_anggota2?->hakim_nama }}">
+                                <input type="text" class="form-control" readonly
+                                    value="Panitera Pengganti : {{ $data->panitera_pengganti?->pp_nama }}">
+                            </div>
                             <div class="col-md-8 bg-light mx-auto mb-2">
                                 <div class="row p-0 bg-info px-3 py-2 rounded rounded-xl h6 text-white ">
                                     <span class="text-center d-inline-block mx-auto">Amar Putusan</span>

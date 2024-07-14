@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accessed;
+use App\Models\Hakim;
+use App\Models\KlasifikasiPerkara;
+use App\Models\PaniteraPengganti;
 use App\Models\Streaming;
 use App\Models\User;
 use Carbon\Carbon;
@@ -114,7 +117,7 @@ class StreamingController extends Controller
           } elseif (strtolower($row->jenis_perkara) === "other") {
             $bg = "bg-info";
           }
-          return "<span class='$bg px-3 py-2 rounded rounded-xl text-white'>$row->jenis_perkara</span>";
+          return "<span class='$bg px-3 py-2 rounded rounded-xl text-white'>$row->jenis_perkara/$row->klasifikasi_perkara</span>";
         })
         ->addColumn('status', function ($row) {
           $now = now('Asia/Makassar')->format('Y-m-d');
@@ -155,12 +158,27 @@ class StreamingController extends Controller
 
   public function addPerkara()
   {
-    return view('admin.add');
+    $hakim = Hakim::all();
+    $pp = PaniteraPengganti::all();
+    $klasifikasi = KlasifikasiPerkara::all()->unique('jenis_perkara');
+    // dd($klasifikasi);
+
+    return view('admin.add', ['hakim' => $hakim, 'pp' => $pp, 'klasifikasi' => $klasifikasi]);
+  }
+
+  public function getKlasifikasi(Request $request, $klasifikasi = null)
+  {
+
+    $klasifikasi = KlasifikasiPerkara::where('jenis_perkara', $klasifikasi)->get();
+    return response()->json($klasifikasi);
   }
   public function editPerkara(Request $request, $id)
   {
     $data = Streaming::find($id);
-    return view('admin.edit', ['data' => $data]);
+    $klasifikasi = KlasifikasiPerkara::all()->unique('jenis_perkara');
+    $hakim = Hakim::all();
+    $pp = PaniteraPengganti::all();
+    return view('admin.edit', ['data' => $data, 'klasifikasi' => $klasifikasi, 'hakim' => $hakim, 'pp' => $pp]);
   }
 
   public function insertPerkara(Request $request)
@@ -171,7 +189,13 @@ class StreamingController extends Controller
         'nomor_perkara' => 'required',
         'nomor_perkara_pertama' => 'required',
         'jenis_perkara' => 'required',
+        'klasifikasi_perkara' => 'required',
+        'hk' => 'required',
+        'ha1' => 'required',
+        'ha2' => 'required',
+        'pp' => 'required',
         'tanggal_sidang' => 'required',
+        'pukul' => 'required',
       ],
 
     );
@@ -194,7 +218,13 @@ class StreamingController extends Controller
         'nomor_perkara' => 'required',
         'nomor_perkara_pertama' => 'required',
         'jenis_perkara' => 'required',
+        'klasifikasi_perkara' => 'required',
+        'hk' => 'required',
+        'ha1' => 'required',
+        'ha2' => 'required',
+        'pp' => 'required',
         'tanggal_sidang' => 'required',
+        'pukul' => 'required',
         'doc_putusan' => 'mimes:pdf|file|max:5000'
       ],
 
@@ -223,7 +253,10 @@ class StreamingController extends Controller
       $link_streaming = str_replace('live', 'embed', $request->link_streaming);
     } elseif (str_contains($request->link_streaming, 'https://youtu.be')) {
       $link_streaming = str_replace('https://youtu.be', 'https://youtube.com/embed', $request->link_streaming);
+    } elseif (str_contains($request->link_streaming, 'watch?v=')) {
+      $link_streaming = str_replace('watch?v=', 'embed/', $request->link_streaming);
     } else {
+
       $link_streaming = $request->link_streaming;
     }
 
@@ -232,6 +265,13 @@ class StreamingController extends Controller
       'nomor_perkara_pertama' => $request->nomor_perkara_pertama,
       'jenis_perkara' => $request->jenis_perkara,
       'tanggal_sidang' => $request->tanggal_sidang,
+      'klasifikasi_perkara' => $request->klasifikasi_perkara,
+      'hk' => $request->hk,
+      'ha1' => $request->ha1,
+      'ha2' => $request->ha2,
+      'pp' => $request->pp,
+
+      'pukul' => $request->pukul,
       'link_streaming' => $link_streaming,
       'amar_putusan' => $request->amar_putusan,
       'doc_putusan' => $doc_putusan,
