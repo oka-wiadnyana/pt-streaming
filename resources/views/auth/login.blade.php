@@ -26,13 +26,13 @@
             <div class="card-body">
 
                 <h3 class="text-center m-0">
-                    <a href="index.html" class="logo logo-admin"><img
-                            src="{{ asset('template_assets') }}/images/logo.png" height="30" alt="logo"></a>
+                    <a href="index.html" class="logo logo-admin"><img src="{{ asset('logo') }}/si-putri-text-black.png"
+                            height="80" alt="logo"></a>
                 </h3>
 
                 <div class="p-3">
-                    <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
-                    <p class="text-muted text-center">Sign in to continue to Agroxa.</p>
+                    <h4 class="text-muted font-18 m-b-5 text-center">Selamat Datang</h4>
+                    <p class="text-muted text-center">Sign in to continue to Si Putri</p>
 
                     <form class="form-horizontal m-t-30" action="{{ url('/attempt_login') }}" method="post">
                         @csrf
