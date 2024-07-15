@@ -6,8 +6,8 @@
             <div class="logo">
 
                 <a href="index.html" class="logo">
-                    <img src="{{ asset('template_assets') }}/images/logo-sm-light.png" alt="" class="logo-small">
-                    <img src="{{ asset('template_assets') }}/images/logo-light.png" alt="" class="logo-large">
+                    <img src="{{ asset('logo') }}/si-putri-text-h.png" alt="" class="logo-small">
+                    <img src="{{ asset('logo') }}/si-putri-text-h.png" alt="" class="logo-large">
                 </a>
 
             </div>

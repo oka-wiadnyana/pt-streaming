@@ -7,11 +7,10 @@
             <div class="row align-center">
 
                 <div class="col-lg-6 info">
-                    <h4 class="wow fadeInRight"><strong>Hot</strong> Aplikasi Streaming Putusan Online</h4>
-                    <h2 class="wow fadeInLeft" data-wow-defaul="300ms">Pengadilan Tinggi Denpasar </h2>
-                    <p class="wow fadeInLeft" data-wow-delay="500ms">
-                        Menegedepankan keterbukaan informasi publik melalui layanan live streaming pembacaan putusan di
-                        Pengadilan Tinggi Denpasar
+                    <h4 class="wow fadeInRight"><strong>Hot</strong> Pengadilan Tinggi Denpasar</h4>
+                    <h2 class="wow fadeInLeft" data-wow-defaul="300ms">SI PUTRI </h2>
+                    <p class="wow fadeInLeft h3" data-wow-delay="500ms">
+                        Saluran Informasi Pengucapan Putusan Secara Daring
                     </p>
                     <a class="btn btn-md circle btn-gradient effect wow fadeInUp" data-wow-delay="700ms"
                         href="{{ url('/home') }}">Halaman Pengguna <i class="fas fa-angle-right"></i></a>
