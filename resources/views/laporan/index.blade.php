@@ -62,6 +62,28 @@
 
                                     </div>
                                     <div class="form-group">
+                                        <label for="" class="form-label">Hakim</label>
+                                        <select name="hakim" id="" class="form-control">
+                                            <option value="" selected>Semua</option>
+                                            @foreach ($hakim as $h)
+                                                <option value="{{ $h->id }}">{{ $h->hakim_nama }}</option>
+                                            @endforeach
+
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-label">PP</label>
+                                        <select name="pp" id="" class="form-control">
+                                            <option value="" selected>Semua</option>
+                                            @foreach ($pp as $h)
+                                                <option value="{{ $h->id }}">{{ $h->pp_nama }}</option>
+                                            @endforeach
+
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group">
                                         <label for="" class="form-label">Tanggal laporan</label>
                                         <input type="date" name="tanggal_laporan" id=""
                                             class="form-control">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hakim;
+use App\Models\PaniteraPengganti;
 use App\Models\Streaming;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,7 +13,9 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        return view('laporan.index');
+        $hakim = Hakim::all();
+        $pp = PaniteraPengganti::all();
+        return view('laporan.index', ['hakim' => $hakim, 'pp' => $pp]);
     }
 
     public function cetakLaporan(Request $request)
@@ -23,13 +27,30 @@ class LaporanController extends Controller
             'panitera_muda_hukum' => 'required',
         ]);
 
-        $data = Streaming::whereMonth('tanggal_sidang', $request->bulan)->whereYear('tanggal_sidang', $request->tahun)->get();
+        if ($request->hakim == null && $request->pp == null) {
+            $data = Streaming::whereMonth('tanggal_sidang', $request->bulan)->whereYear('tanggal_sidang', $request->tahun)->get();
+        } elseif ($request->hakim != null && $request->pp == null) {
+
+            $data = Streaming::whereMonth('tanggal_sidang', $request->bulan)->whereYear('tanggal_sidang', $request->tahun)->where(function ($query) use ($request) {
+                $query->where('hk', $request->hakim)->orWhere('ha1', $request->hakim)->orWhere('ha2', $request->hakim);
+            })->get();
+        } elseif ($request->hakim == null && $request->pp != null) {
+            $data = Streaming::whereMonth('tanggal_sidang', $request->bulan)->whereYear('tanggal_sidang', $request->tahun)->where(function ($query) use ($request) {
+                $query->where('pp', $request->pp);
+            })->get();
+        } elseif ($request->hakim != null && $request->pp != null) {
+            $data = Streaming::whereMonth('tanggal_sidang', $request->bulan)->whereYear('tanggal_sidang', $request->tahun)->where(function ($query) use ($request) {
+                $query->where('hk', $request->hakim)->orWhere('ha1', $request->hakim)->orWhere('ha2', $request->hakim)->orWhere('pp', $request->pp);
+            })->get();
+        };
+
+        // dd($data);
         $data_fix = [];
         $nomor = 1;
         foreach ($data as $d) {
             $data_fix[] = [
                 'nomor' => $nomor++,
-                'nomor_perkara' => $d->nomor_perkara . '/' . $d->nomor_perkara_pertama,
+                'nomor_perkara' => $d->nomor_perkara . ' Jo. ' . $d->nomor_perkara_pertama,
                 'majelis' => "Hakim Ketua : " . $d->hakim_ketua?->hakim_nama . "</w:t><w:br/><w:t>Hakim Anggota 1: " . $d->hakim_anggota1?->hakim_nama . "</w:t><w:br/><w:t>Hakim Anggota 2 : " . $d->hakim_anggota2?->hakim_nama,
                 'pp' => $d->panitera_pengganti?->pp_nama,
 
